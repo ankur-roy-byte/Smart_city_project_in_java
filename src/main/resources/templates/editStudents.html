@@ -12,7 +12,7 @@
   <h1>welcome to smart city project</h1>
 </head>
 <body class="container">
-<form class="col card p-3 my-5" method="post" th:action="'/admin/'+${userInfo.id}" th:object="${userInfo}">
+<form class="col card p-3 my-5" method="post" th:action="'/editStudent/'+${userInfo.id}" th:object="${userInfo}">
   <div class="form-group">
     <label for="firstName">First Name</label>
     <input class="form-control" id="firstName" placeholder="Enter First Name" required
@@ -28,6 +28,17 @@
   <div class="form-group">
     <label for="role">Role</label>
     <select class="form-control " id="role" required th:field="*{role}">
+      <option hidden value="">Select a role</option>
+      <option
+              th:each="role : ${T(com.smart_city.SmartCity.domain.entities.Role).values()}"
+              th:text="${role}"
+              th:value="${role}">
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="role">Role</label>
+    <select class="form-control " id="Qualification" required th:field="*{role}">
       <option hidden value="">Select a role</option>
       <option
               th:each="role : ${T(com.smart_city.SmartCity.domain.entities.Role).values()}"

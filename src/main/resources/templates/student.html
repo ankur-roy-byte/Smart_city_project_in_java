@@ -16,7 +16,7 @@
 </head>
 <body class="container">
 
-<form class="col card p-3 my-5" method="post" th:action="@{/admin}" th:object="${userInfo}">
+<form class="col card p-3 my-5" method="post" th:action="@{/student}" th:object="${userInfo}">
     <div class="form-group">
         <label for="firstName">First Name</label>
         <input class="form-control" id="firstName" placeholder="Enter First Name" required autocomplete="off"
@@ -27,6 +27,12 @@
         <label for="lastName">Last Name</label>
         <input class="form-control" id="lastName" placeholder="Enter Last Name" required  autocomplete="off"
                th:field="*{lastName}"
+               type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input class="form-control" id="email" placeholder="Enter Email" required  autocomplete="off"
+               th:field="*{email}"
                type="text"/>
     </div>
     <div class="form-group">
@@ -42,12 +48,12 @@
     </div>
     <div class="form-group">
         <label for="role">Qualification</label>
-        <select class="form-control " id="quali" required th:field="*{role}">
+        <select class="form-control " id="quali" required th:field="*{qualification}">
             <option hidden value="">Select your Qualification</option>
             <option
-                    th:each="role : ${T(com.smart_city.SmartCity.domain.entities.Role).values()}"
-                    th:text="10th"
-                    th:value="12th">
+                    th:each="Qualification : ${T(com.smart_city.SmartCity.domain.entities.Qualification).values()}"
+                    th:text="${Qualification}"
+                    th:value="${Qualification}">
             </option>
         </select>
     </div>
@@ -63,6 +69,8 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Role</th>
+        <th>Qualification</th>
+        <th>Email</th>
         <th>Created At</th>
         <th>Updated At</th>
         <th>Actions</th>
@@ -75,9 +83,11 @@
         <td class="align-middle" th:text="${user.firstName}"></td>
         <td class="align-middle" th:text="${user.lastName}"></td>
         <td class="align-middle" th:text="${user.role}"></td>
+        <td class="align-middle" th:text="${user.qualification}"></td>
+        <td class="align-middle" th:text="${user.email}"></td>
         <td class="align-middle" th:text="${user.createdAt}"></td>
         <td class="align-middle" th:text="${user.updatedAt}"></td>
-        <td class="align-middle text-center"><a class="btn btn-secondary" th:href="'/admin/' + ${user.id}">✏</a></td>
+        <td class="align-middle text-center"><a class="btn btn-secondary" th:href="'/student/' + ${user.id}">✏</a></td>
     </tr>
 </table>
 </body>

@@ -1,7 +1,7 @@
 package com.smart_city.SmartCity.controllers;
 
-import com.smart_city.SmartCity.domain.entities.UserInfo;
-import com.smart_city.SmartCity.services.UserService;
+import com.smart_city.SmartCity.domain.entities.StudentInfo;
+import com.smart_city.SmartCity.services.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,22 +15,22 @@ import java.util.List;
 
 @Controller
 public class StudentController {
-    private final UserService userService;
+    private final StudentService userService;
 
-    public StudentController(UserService userService) {
+    public StudentController(StudentService userService) {
         this.userService = userService;
     }
 
     @RequestMapping(path = "/student", method = RequestMethod.GET)
     public String getUsers(Model model) {
-        List<UserInfo> users = userService.getUsers();
+        List<StudentInfo> users = userService.getUsers();
         model.addAttribute("users", users);
-        model.addAttribute("userInfo", new UserInfo());
+        model.addAttribute("userInfo", new StudentInfo());
         return "student";
     }
 
     @RequestMapping(path = "/student", method = RequestMethod.POST)
-    public RedirectView createUser(RedirectAttributes redirectAttributes, @ModelAttribute UserInfo userInfo) {
+    public RedirectView createUser(RedirectAttributes redirectAttributes, @ModelAttribute StudentInfo userInfo) {
         userService.createUser(userInfo);
         String message = "Created user <b>" + userInfo.getFirstName() + " " + userInfo.getLastName() + "</b> ✨.";
         RedirectView redirectView = new RedirectView("/student", true);
@@ -40,13 +40,13 @@ public class StudentController {
 
     @RequestMapping(path = "/student/{id}", method = RequestMethod.GET)
     public String getUser(Model model, @PathVariable("id") Integer id) {
-        UserInfo userInfo = userService.getUser(id);
+        StudentInfo userInfo = userService.getUser(id);
         model.addAttribute("userInfo", userInfo);
         return "edit";
     }
 
     @RequestMapping(path = "/student/{id}", method = RequestMethod.POST)
-    public RedirectView updateUser(RedirectAttributes redirectAttributes, @PathVariable("id") Integer id, @ModelAttribute UserInfo userInfo) {
+    public RedirectView updateUser(RedirectAttributes redirectAttributes, @PathVariable("id") Integer id, @ModelAttribute StudentInfo userInfo) {
         userService.updateUser(id, userInfo);
         String message = (userInfo.isActive() ? "Updated " : "Deleted ") + " user <b>" + userInfo.getFirstName() + " " + userInfo.getLastName() + "</b> ✨.";
         RedirectView redirectView = new RedirectView("/student", true);
